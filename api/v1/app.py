@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Script that starts a Flask web application"""
 
-from os import getenv
-from models import storage
-from flask import Flask, jsonify
 from api.v1.views import app_views
+from flask import Flask, jsonify
+from models import storage
+from os import getenv
 
 
 flk = Flask(__name__)
