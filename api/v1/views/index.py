@@ -6,13 +6,13 @@ from flask import jsonify
 from models import storage
 
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+@app_views.route('/status', strict_slashes=False)
 def status():
     """Returns status"""
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False)
 def stats():
     """Returns stats"""
     classes = {"amenities": "Amenity",
@@ -21,7 +21,6 @@ def stats():
                "reviews": "Review",
                "states": "State",
                "users": "User"}
-    stats = {}
     for key, value in classes.items():
-        stats[key] = storage.count(value)
-    return jsonify(stats)
+        classes[key] = storage.count(value)
+    return jsonify(classes)

@@ -12,13 +12,13 @@ app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def close_storage():
+def close_storage(exception):
     """Close storage"""
     storage.close()
 
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(exception):
     """Page not found"""
     return jsonify({"error": "Not found"}), 404
 
