@@ -78,4 +78,4 @@ def update_place(place_id):
                        'created', 'updated']:
             setattr(place, key, value)
     place.save()
-    return jsonify(place.to_dict())
+    return jsonify(place.to_dict()), 200
