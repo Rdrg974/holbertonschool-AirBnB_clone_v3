@@ -47,10 +47,10 @@ def create_place(city_id):
     """Creates a Place object"""
     city = storage.get(City, city_id)
     if city is None:
-        abort(404)
-    new_dict = request.get_json()
-    if new_dict is None:
+        abort(404) 
+    if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400
+    new_dict = request.get_json()
     if 'user_id' not in new_dict:
         return jsonify({"error": "Missing user_id"}), 400
     if 'name' not in new_dict:

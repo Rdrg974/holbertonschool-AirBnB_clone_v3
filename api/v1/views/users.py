@@ -38,9 +38,9 @@ def delete_user(user_id):
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """Creates a User object"""
-    new_dict = request.get_json()
-    if new_dict is None:
+    if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400
+    new_dict = request.get_json()
     if 'email' not in new_dict:
         return jsonify({"error": "Missing email"}), 400
     if 'password' not in new_dict:
@@ -56,9 +56,9 @@ def update_user(user_id):
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
-    new_dict = request.get_json()
-    if new_dict is None:
+    if not request.is_json:
         return jsonify({"error": "Not a JSON"}), 400
+    new_dict = request.get_json()
     for key, value in new_dict.items():
         if key not in ['id', 'email', 'created_at', 'updated_at']:
             setattr(user, key, value)
